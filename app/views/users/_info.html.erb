@@ -10,11 +10,19 @@
   </tr>
   <tr>
 	  <th>follows</th>
-	  <th><%= Follower.find_by(user_id: user.id).users.count %></th>
+	  <th>
+      <%= link_to follow_index_user_relationships_path(user.id) do %>
+        <%= Follower.find_by(user_id: user.id).users.count %>
+	    <% end %>
+	  </th>
   </tr>
   <tr>
 	  <th>followers</th>
-	  <th><%= user.followers.count %></th>
+	  <th>
+     <%= link_to follower_index_user_relationships_path(user.id) do %>
+      <%= user.followers.count %>
+     <% end %>
+	  </th>
   </tr>
 </table>
 

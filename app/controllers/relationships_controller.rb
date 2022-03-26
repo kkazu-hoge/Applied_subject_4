@@ -30,4 +30,12 @@ class RelationshipsController < ApplicationController
     redirect_to request.referer
   end
 
+  def follow_index
+    @follows = Follower.find_by(user_id: params[:user_id]).users
+  end
+  
+  def follower_index
+    @followers = User.find(params[:user_id]).followers
+  end
+
 end
