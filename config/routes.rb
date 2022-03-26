@@ -5,8 +5,16 @@ Rails.application.routes.draw do
   get "home/about"=>'homes#about'
 
   devise_for :users
-  resources :users, only: [:index,:show,:edit,:update]
+  resources :users, only: [:index,:show,:edit,:update] do
+    resources :relationships, only: [:create, :destroy] do
+      get :follow_index, on: :collection
+      get :follower_index, on: :collection
+    end
+  end
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
+    # get :search, on: :collection (自作アクションを作成した場合にルーティング紐づけ idなし)
+    # get :search, on: :member(自作アクションを作成した場合にルーティング紐づけ idあり)
+    # get :search, action: :action1, on: :collection (アクションとパスが一致しない場合はactionオプションを使用)
     resources :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
@@ -56,3 +64,10 @@ end
 #                           DELETE /books/:id(.:format)                       books#destroy
         # book_book_comments POST   /books/:book_id/book_comments(.:format)          book_comments#create
         # book_book_comment DELETE /books/:book_id/book_comments/:id(.:format)      book_comments#destroy
+          # user_relationships POST   /users/:user_id/relationships(.:format)       relationships#create
+          # user_relationship DELETE /users/:user_id/relationships/:id(.:format)   relationships#destroy
+# follow_index_user_relationships GET    /users/:user_id/relationships/follow_index(.:format)    relationships#follow_index
+# follower_index_user_relationships GET  /users/:user_id/relationships/follower_index(.:format)  relationships#follower_index
+          
+          
+          
