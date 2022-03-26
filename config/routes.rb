@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   get "home/about"=>'homes#about'
 
   devise_for :users
-  resources :users, only: [:index,:show,:edit,:update]
+  resources :users, only: [:index,:show,:edit,:update] do
+    resources :relationships, only: [:create, :destroy]
+  end
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
+    # get :search, on: :collection (自作アクションを作成した場合にルーティング紐づけ idなし)
+    # get :search, on: :member(自作アクションを作成した場合にルーティング紐づけ idあり)
+    # get :search, action: :action1, on: :collection (アクションとパスが一致しない場合はactionオプションを使用)
     resources :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
