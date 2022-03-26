@@ -61,3 +61,5 @@ end
 #                           DELETE /books/:id(.:format)                       books#destroy
         # book_book_comments POST   /books/:book_id/book_comments(.:format)          book_comments#create
         # book_book_comment DELETE /books/:book_id/book_comments/:id(.:format)      book_comments#destroy
+          # user_relationships POST   /users/:user_id/relationships(.:format)       relationships#create
+          # user_relationship DELETE /users/:user_id/relationships/:id(.:format)   relationships#destroy

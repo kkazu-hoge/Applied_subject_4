@@ -11,6 +11,9 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+        <td>フォロー数:<%= Follower.find_by(user_id: user.id).users.count %></td>
+        <td>フォロワー数:<%= user.followers.count %></td>
+        <td>ボタン</td>
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
       </tr>
     <% end %>
