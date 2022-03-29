@@ -12,7 +12,7 @@
 	  <th>follows</th>
 	  <th>
       <%= link_to follow_index_user_relationships_path(user.id) do %>
-        <%= Follower.find_by(user_id: user.id).users.count %>
+        <%= Follower.exists?(user_id: user.id) ? Follower.find_by(user_id: user.id).users.count : 0 %>
 	    <% end %>
 	  </th>
   </tr>

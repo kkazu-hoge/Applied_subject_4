@@ -31,10 +31,15 @@ class RelationshipsController < ApplicationController
   end
 
   def follow_index
-    @follows = Follower.find_by(user_id: params[:user_id]).users
+    if Follower.exists?(user_id: params[:user_id])
+      @follows = Follower.find_by(user_id: params[:user_id]).users
+    else
+      @follows = ""
+    end
   end
   
   def follower_index
+    #userは必ず存在するのでレコードありなしの判定は不要
     @followers = User.find(params[:user_id]).followers
   end
 

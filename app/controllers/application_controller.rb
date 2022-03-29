@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
+    #サインアップ、サインイン時に自動的にfolloweレコードを作成する
+    unless Follower.exists?(user_id: current_user.id)
+      follower = Follower.new(user_id: current_user.id, user_name: current_user.name)
+      follower.save
+    end
     user_path(current_user.id)
   end
 
